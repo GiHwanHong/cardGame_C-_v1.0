@@ -54,6 +54,8 @@
             this.gameTime = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnPlayAgain = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnHint = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.CardsHolder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.card16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.card15)).BeginInit();
@@ -106,7 +108,7 @@
             this.card16.TabIndex = 15;
             this.card16.TabStop = false;
             this.card16.Tag = "";
-            this.card16.Click += new System.EventHandler(this.card1_Click);
+            this.card16.Click += new System.EventHandler(this.card_Click);
             // 
             // card15
             // 
@@ -117,7 +119,7 @@
             this.card15.TabIndex = 14;
             this.card15.TabStop = false;
             this.card15.Tag = "";
-            this.card15.Click += new System.EventHandler(this.card1_Click);
+            this.card15.Click += new System.EventHandler(this.card_Click);
             // 
             // card14
             // 
@@ -128,7 +130,7 @@
             this.card14.TabIndex = 13;
             this.card14.TabStop = false;
             this.card14.Tag = "";
-            this.card14.Click += new System.EventHandler(this.card1_Click);
+            this.card14.Click += new System.EventHandler(this.card_Click);
             // 
             // card13
             // 
@@ -139,7 +141,7 @@
             this.card13.TabIndex = 12;
             this.card13.TabStop = false;
             this.card13.Tag = "";
-            this.card13.Click += new System.EventHandler(this.card1_Click);
+            this.card13.Click += new System.EventHandler(this.card_Click);
             // 
             // card12
             // 
@@ -150,7 +152,7 @@
             this.card12.TabIndex = 11;
             this.card12.TabStop = false;
             this.card12.Tag = "";
-            this.card12.Click += new System.EventHandler(this.card1_Click);
+            this.card12.Click += new System.EventHandler(this.card_Click);
             // 
             // card11
             // 
@@ -161,7 +163,7 @@
             this.card11.TabIndex = 10;
             this.card11.TabStop = false;
             this.card11.Tag = "";
-            this.card11.Click += new System.EventHandler(this.card1_Click);
+            this.card11.Click += new System.EventHandler(this.card_Click);
             // 
             // card10
             // 
@@ -172,7 +174,7 @@
             this.card10.TabIndex = 9;
             this.card10.TabStop = false;
             this.card10.Tag = "";
-            this.card10.Click += new System.EventHandler(this.card1_Click);
+            this.card10.Click += new System.EventHandler(this.card_Click);
             // 
             // card9
             // 
@@ -183,7 +185,7 @@
             this.card9.TabIndex = 8;
             this.card9.TabStop = false;
             this.card9.Tag = "";
-            this.card9.Click += new System.EventHandler(this.card1_Click);
+            this.card9.Click += new System.EventHandler(this.card_Click);
             // 
             // card8
             // 
@@ -194,7 +196,7 @@
             this.card8.TabIndex = 7;
             this.card8.TabStop = false;
             this.card8.Tag = "";
-            this.card8.Click += new System.EventHandler(this.card1_Click);
+            this.card8.Click += new System.EventHandler(this.card_Click);
             // 
             // card7
             // 
@@ -205,7 +207,7 @@
             this.card7.TabIndex = 6;
             this.card7.TabStop = false;
             this.card7.Tag = "";
-            this.card7.Click += new System.EventHandler(this.card1_Click);
+            this.card7.Click += new System.EventHandler(this.card_Click);
             // 
             // card6
             // 
@@ -216,7 +218,7 @@
             this.card6.TabIndex = 5;
             this.card6.TabStop = false;
             this.card6.Tag = "";
-            this.card6.Click += new System.EventHandler(this.card1_Click);
+            this.card6.Click += new System.EventHandler(this.card_Click);
             // 
             // card5
             // 
@@ -227,7 +229,7 @@
             this.card5.TabIndex = 4;
             this.card5.TabStop = false;
             this.card5.Tag = "";
-            this.card5.Click += new System.EventHandler(this.card1_Click);
+            this.card5.Click += new System.EventHandler(this.card_Click);
             // 
             // card4
             // 
@@ -238,7 +240,7 @@
             this.card4.TabIndex = 3;
             this.card4.TabStop = false;
             this.card4.Tag = "";
-            this.card4.Click += new System.EventHandler(this.card1_Click);
+            this.card4.Click += new System.EventHandler(this.card_Click);
             // 
             // card3
             // 
@@ -249,7 +251,7 @@
             this.card3.TabIndex = 2;
             this.card3.TabStop = false;
             this.card3.Tag = "";
-            this.card3.Click += new System.EventHandler(this.card1_Click);
+            this.card3.Click += new System.EventHandler(this.card_Click);
             // 
             // card2
             // 
@@ -260,7 +262,7 @@
             this.card2.TabIndex = 1;
             this.card2.TabStop = false;
             this.card2.Tag = "";
-            this.card2.Click += new System.EventHandler(this.card1_Click);
+            this.card2.Click += new System.EventHandler(this.card_Click);
             // 
             // card1
             // 
@@ -271,7 +273,7 @@
             this.card1.TabIndex = 0;
             this.card1.TabStop = false;
             this.card1.Tag = "";
-            this.card1.Click += new System.EventHandler(this.card1_Click);
+            this.card1.Click += new System.EventHandler(this.card_Click);
             // 
             // label1
             // 
@@ -347,12 +349,36 @@
             this.btnPlayAgain.UseVisualStyleBackColor = true;
             this.btnPlayAgain.Click += new System.EventHandler(this.btnPlayAgain_Click);
             // 
+            // btnHint
+            // 
+            this.btnHint.AutoSize = true;
+            this.btnHint.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnHint.Depth = 0;
+            this.btnHint.Icon = null;
+            this.btnHint.Location = new System.Drawing.Point(767, 646);
+            this.btnHint.MaximumSize = new System.Drawing.Size(153, 80);
+            this.btnHint.MinimumSize = new System.Drawing.Size(80, 20);
+            this.btnHint.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnHint.Name = "btnHint";
+            this.btnHint.Primary = true;
+            this.btnHint.Size = new System.Drawing.Size(80, 36);
+            this.btnHint.TabIndex = 8;
+            this.btnHint.Text = "Hint";
+            this.btnHint.UseVisualStyleBackColor = true;
+            this.btnHint.Click += new System.EventHandler(this.btnHint_Click);
+            // 
+            // timer2
+            // 
+            this.timer2.Interval = 1000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // GameBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(859, 690);
+            this.Controls.Add(this.btnHint);
             this.Controls.Add(this.btnPlayAgain);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.gameTime);
@@ -363,8 +389,9 @@
             this.Name = "GameBoard";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SameCardGame   /   UserName : ";
+            this.Text = "같은 영화 포스터 찾기 게임 | 사용자이름 : ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameBoard_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.CardsHolder.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.card16)).EndInit();
@@ -415,6 +442,8 @@
         private System.Windows.Forms.Label gameTime;
         private System.Windows.Forms.Label label2;
         private MaterialSkin.Controls.MaterialRaisedButton btnPlayAgain;
+        private MaterialSkin.Controls.MaterialRaisedButton btnHint;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 

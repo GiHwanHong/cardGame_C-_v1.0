@@ -7,7 +7,9 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -52,20 +54,40 @@ namespace CardGame2
             }
         }
 
-        private void btnToExcel_Click(object sender, EventArgs e)
+        private void btnToExcelSave_Click(object sender, EventArgs e)
+        {
+            string filePath = Path.Combine(Environment.CurrentDirectory, "CardGameFile.xlsx");
+            if (File.Exists(filePath))
+            {
+                updateExcelRankFile(filePath);
+            }
+            else
+            {
+                makeExcelRankFile(filePath);
+            }
+        }
+
+        private void updateExcelRankFile(string filePath)
         {
             Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Open(filePath);
             Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
-            app.Visible = true;
-            worksheet = workbook.Sheets["Sheet1"];
-            worksheet = workbook.ActiveSheet;
+
             try
             {
+                worksheet = workbook.Worksheets.Item["Sheet1"];
+                worksheet = workbook.ActiveSheet;
+                foreach (dynamic worksheet1 in workbook.Worksheets)
+                {
+                    worksheet.Cells.ClearContents();
+                }
+                //// Title
                 for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
                 {
                     worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
                 }
+
+                // Content
                 for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
                 {
                     for (int j = 0; j < dataGridView1.Columns.Count; j++)
@@ -73,6 +95,7 @@ namespace CardGame2
                         if (dataGridView1.Rows[i].Cells[j].Value != null)
                         {
                             worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+
                         }
                         else
                         {
@@ -80,25 +103,115 @@ namespace CardGame2
                         }
                     }
                 }
-                SaveFileDialog saveDialog = new SaveFileDialog();
-                saveDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
-                saveDialog.FilterIndex = 2;
+                worksheet.Columns.AutoFit();
 
-                if (saveDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    workbook.SaveAs(saveDialog.FileName);
-                    MessageBox.Show("Export Successful");
-                }
+                workbook.Save();
+
+                workbook.Close(true);
+                
+                app.Quit();
+                
             }
             catch (System.Exception ex)
             {
+
                 MessageBox.Show(ex.Message);
             }
             finally
             {
+                ReleaseExcelObject(worksheet);
+                ReleaseExcelObject(workbook);
+                ReleaseExcelObject(app);
+            }
+
+
+        }
+
+        private void makeExcelRankFile(string filePath)
+        { 
+            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+            //Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add();
+            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+
+            
+            worksheet = workbook.Sheets["Sheet1"];
+            worksheet = workbook.ActiveSheet;
+
+            
+            // Excel 범위에 색칠하기.
+            var columnHeadingsRange = worksheet.Range["A1:E1"];
+            columnHeadingsRange.Interior.Color = Color.SteelBlue;
+            columnHeadingsRange.Font.Color = Color.White;
+
+            try
+            {
+                //// Title
+                for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+                {
+                    worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
+                }
+
+                // Content
+                for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                {
+                    for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                    {
+                        if (dataGridView1.Rows[i].Cells[j].Value != null)
+                        {
+                            worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
+
+                        }
+                        else
+                        {
+                            worksheet.Cells[i + 2, j + 1] = "";
+                        }
+                    }
+                }
+                worksheet.Columns.AutoFit();
+
+
+                workbook.SaveAs(filePath, Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenXMLWorkbook);
+                workbook.Close(true);
                 app.Quit();
-                workbook = null;
-                app = null;
+                MessageBox.Show("Export Successful", "출력 메시지");
+
+            }
+            catch (System.Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                ReleaseExcelObject(worksheet);
+                ReleaseExcelObject(workbook);
+                ReleaseExcelObject(app);
+            }
+        }
+
+        private void btnExcelOpen_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(@"D:\workspace\VisualStudio\CSharpBook\CardGame2\bin\Debug\test.xls");
+        }
+        private static void ReleaseExcelObject(object obj)
+        {
+            try
+            {
+                if (obj != null)
+                {
+                    Marshal.ReleaseComObject(obj);
+                    obj = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                throw ex;
+            }
+            finally
+            {
+                GC.Collect();
             }
         }
     }

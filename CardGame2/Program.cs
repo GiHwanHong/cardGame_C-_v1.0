@@ -18,7 +18,7 @@ namespace CardGame2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new GameMode());
+            Application.Run(new GameRank());
 
 
         }

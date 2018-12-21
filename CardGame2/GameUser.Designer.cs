@@ -45,7 +45,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(55, 78);
+            this.label1.Location = new System.Drawing.Point(32, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(161, 12);
             this.label1.TabIndex = 3;
@@ -97,7 +97,7 @@
             this.Name = "GameUser";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Input UserName";
+            this.Text = "입력";
             this.ResumeLayout(false);
             this.PerformLayout();
 

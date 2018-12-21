@@ -87,12 +87,6 @@
     <Compile Include="GameLevel.Designer.cs">
       <DependentUpon>GameLevel.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameMode.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GameMode.Designer.cs">
-      <DependentUpon>GameMode.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GameBoard.resx">
@@ -106,9 +100,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GameLevel.resx">
       <DependentUpon>GameLevel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="GameMode.resx">
-      <DependentUpon>GameMode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

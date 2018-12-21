@@ -109,7 +109,7 @@
             this.Controls.Add(this.label1);
             this.Name = "GameLevel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Level Setting";
+            this.Text = "난이도 설정";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -14,6 +14,8 @@ namespace CardGame2
 {
     public partial class GameUser : MaterialForm
     {
+        private string _userName = "";
+        public string UserName { get { return _userName; } set { _userName = value; } }
         // 사용자 명을 입력 받는 창.
         public GameUser()
         {
@@ -23,15 +25,17 @@ namespace CardGame2
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue700, Primary.Blue50, Accent.LightBlue200, TextShade.WHITE);
+            
+            
+
         }
 
         private void btnOK_Click_1(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(textBox1.Text))
             {
+                UserName = textBox1.Text;
                 this.Visible = false;
-                GameLevel frm4 = new GameLevel(textBox1.Text);
-                frm4.Show();
             }
             else
             {
