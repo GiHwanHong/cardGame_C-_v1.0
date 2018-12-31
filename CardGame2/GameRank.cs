@@ -16,22 +16,24 @@ using System.Windows.Forms;
 
 namespace CardGame2
 {
+    /// <summary>
+    /// 게임순위를 확인할 수 있는 창.
+    /// </summary>
+    
     public partial class GameRank : MaterialForm
     {
-        private string connection = ConfigurationManager.ConnectionStrings["connectionDB"].ToString();
-        
+        private string _connection = ConfigurationManager.ConnectionStrings["connectionDB"].ToString();
+        private string _filePath = Path.Combine(Environment.CurrentDirectory, "CardGameFile.xlsx");
+
         public GameRank()
         {
             InitializeComponent();
-            var materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue700, Primary.Blue50, Accent.LightBlue200, TextShade.WHITE);
+            MaterialDesignForm();
         }
 
-        private void Form2_Load(object sender, EventArgs e)
+        private void GameRank_Load(object sender, EventArgs e)
         {
-            using (OracleConnection conn = new OracleConnection(connection))
+            using (OracleConnection conn = new OracleConnection(_connection))
             {
                 // 커넥션 오픈
                 conn.Open();
@@ -47,7 +49,7 @@ namespace CardGame2
                     {
                         DataTable dataTable = new DataTable();
                         dataTable.Load(reader);
-                        
+
                         dataGridView1.DataSource = dataTable;
                     }
                 }
@@ -56,46 +58,61 @@ namespace CardGame2
 
         private void btnToExcelSave_Click(object sender, EventArgs e)
         {
-            string filePath = Path.Combine(Environment.CurrentDirectory, "CardGameFile.xlsx");
-            if (File.Exists(filePath))
+            if (File.Exists(_filePath))
             {
-                updateExcelRankFile(filePath);
+                updateExcelRankFile(_filePath);
+                MessageBox.Show("엑셀파일이 업데이트 되었습니다.", "메시지 창",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
             else
             {
-                makeExcelRankFile(filePath);
+                makeExcelRankFile(_filePath);
+                MessageBox.Show("엑셀파일이 새로생성 되었습니다.", "메시지 창", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        private void btnExcelOpen_Click(object sender, EventArgs e)
+        {
+            if (File.Exists(_filePath))
+            {
+                updateExcelRankFile(_filePath);
+                System.Diagnostics.Process.Start(_filePath);
+            }
+            else
+            {
+                makeExcelRankFile(_filePath);
+                //System.Diagnostics.Process.Start(_filePath);
             }
         }
 
         private void updateExcelRankFile(string filePath)
         {
             Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Open(filePath);
+            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add();
             Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
 
             try
             {
+                app.DisplayAlerts = false;
                 worksheet = workbook.Worksheets.Item["Sheet1"];
                 worksheet = workbook.ActiveSheet;
                 foreach (dynamic worksheet1 in workbook.Worksheets)
                 {
                     worksheet.Cells.ClearContents();
                 }
-                //// Title
+
+                // 컬럼이름을 셀에 넣어줌.
                 for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
                 {
                     worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
                 }
 
-                // Content
-                for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                // 데이터를 넣어줌.
+                for (int i = 0; i <= dataGridView1.Rows.Count - 1; i++)
                 {
                     for (int j = 0; j < dataGridView1.Columns.Count; j++)
                     {
                         if (dataGridView1.Rows[i].Cells[j].Value != null)
                         {
                             worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-
                         }
                         else
                         {
@@ -103,18 +120,15 @@ namespace CardGame2
                         }
                     }
                 }
-                worksheet.Columns.AutoFit();
+                worksheet.Columns.AutoFit();        // 컬럼의 크기를 맞춤.
 
                 workbook.Save();
 
                 workbook.Close(true);
-                
                 app.Quit();
-                
             }
             catch (System.Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -123,21 +137,16 @@ namespace CardGame2
                 ReleaseExcelObject(workbook);
                 ReleaseExcelObject(app);
             }
-
-
         }
 
         private void makeExcelRankFile(string filePath)
         { 
             Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-            //Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
             Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add();
             Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
 
-            
             worksheet = workbook.Sheets["Sheet1"];
             worksheet = workbook.ActiveSheet;
-
             
             // Excel 범위에 색칠하기.
             var columnHeadingsRange = worksheet.Range["A1:E1"];
@@ -146,13 +155,13 @@ namespace CardGame2
 
             try
             {
-                //// Title
+                // 컬럼이름을 셀에 넣어줌.
                 for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
                 {
                     worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
                 }
 
-                // Content
+                // 데이터를 넣어줌.
                 for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
                 {
                     for (int j = 0; j < dataGridView1.Columns.Count; j++)
@@ -160,7 +169,6 @@ namespace CardGame2
                         if (dataGridView1.Rows[i].Cells[j].Value != null)
                         {
                             worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-
                         }
                         else
                         {
@@ -168,18 +176,15 @@ namespace CardGame2
                         }
                     }
                 }
-                worksheet.Columns.AutoFit();
-
+                worksheet.Columns.AutoFit();    // 컬럼의 크기를 맞춤.
 
                 workbook.SaveAs(filePath, Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenXMLWorkbook);
                 workbook.Close(true);
                 app.Quit();
-                MessageBox.Show("Export Successful", "출력 메시지");
-
             }
+
             catch (System.Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
             }
             finally
@@ -189,11 +194,7 @@ namespace CardGame2
                 ReleaseExcelObject(app);
             }
         }
-
-        private void btnExcelOpen_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(@"D:\workspace\VisualStudio\CSharpBook\CardGame2\bin\Debug\test.xls");
-        }
+        
         private static void ReleaseExcelObject(object obj)
         {
             try
@@ -214,5 +215,13 @@ namespace CardGame2
                 GC.Collect();
             }
         }
+        public void MaterialDesignForm()
+        {
+            var materialSkinManager = MaterialSkinManager.Instance;
+            materialSkinManager.AddFormToManage(this);
+            materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue500, Primary.Blue700, Primary.Blue50, Accent.LightBlue200, TextShade.WHITE);
+        }
+        
     }
 }

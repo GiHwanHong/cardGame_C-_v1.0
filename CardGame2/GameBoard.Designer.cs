@@ -47,15 +47,15 @@
             this.card2 = new System.Windows.Forms.PictureBox();
             this.card1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.ScoreLabel = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.timer4 = new System.Windows.Forms.Timer(this.components);
-            this.gameTime = new System.Windows.Forms.Label();
+            this.lblScore = new System.Windows.Forms.Label();
+            this.gameInitPreviewTimer = new System.Windows.Forms.Timer(this.components);
+            this.gameCardIncorrectTimer = new System.Windows.Forms.Timer(this.components);
+            this.gameCardCorrectTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblGameTime = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnPlayAgain = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnHint = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.gameCardStatusTimer = new System.Windows.Forms.Timer(this.components);
             this.CardsHolder.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.card16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.card15)).BeginInit();
@@ -279,53 +279,53 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label1.Location = new System.Drawing.Point(667, 285);
+            this.label1.Location = new System.Drawing.Point(660, 449);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(60, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "점수 : ";
             // 
-            // ScoreLabel
+            // lblScore
             // 
-            this.ScoreLabel.AutoSize = true;
-            this.ScoreLabel.Font = new System.Drawing.Font("돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.ScoreLabel.Location = new System.Drawing.Point(736, 285);
-            this.ScoreLabel.Name = "ScoreLabel";
-            this.ScoreLabel.Size = new System.Drawing.Size(17, 16);
-            this.ScoreLabel.TabIndex = 2;
-            this.ScoreLabel.Text = "0";
+            this.lblScore.AutoSize = true;
+            this.lblScore.Font = new System.Drawing.Font("돋움", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblScore.Location = new System.Drawing.Point(729, 449);
+            this.lblScore.Name = "lblScore";
+            this.lblScore.Size = new System.Drawing.Size(17, 16);
+            this.lblScore.TabIndex = 2;
+            this.lblScore.Text = "0";
             // 
-            // timer1
+            // gameInitPreviewTimer
             // 
-            this.timer1.Interval = 5000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.gameInitPreviewTimer.Interval = 5000;
+            this.gameInitPreviewTimer.Tick += new System.EventHandler(this.gameInitPreviewTimer_Tick);
             // 
-            // timer3
+            // gameCardIncorrectTimer
             // 
-            this.timer3.Interval = 300;
-            this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            this.gameCardIncorrectTimer.Interval = 300;
+            this.gameCardIncorrectTimer.Tick += new System.EventHandler(this.gameCardIncorrectTimer_Tick);
             // 
-            // timer4
+            // gameCardCorrectTimer
             // 
-            this.timer4.Interval = 300;
-            this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
+            this.gameCardCorrectTimer.Interval = 300;
+            this.gameCardCorrectTimer.Tick += new System.EventHandler(this.gameCardCorrectTimer_Tick);
             // 
-            // gameTime
+            // lblGameTime
             // 
-            this.gameTime.AutoSize = true;
-            this.gameTime.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.gameTime.Location = new System.Drawing.Point(733, 243);
-            this.gameTime.Name = "gameTime";
-            this.gameTime.Size = new System.Drawing.Size(89, 19);
-            this.gameTime.TabIndex = 5;
-            this.gameTime.Text = "00:00:00";
-            this.gameTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblGameTime.AutoSize = true;
+            this.lblGameTime.Font = new System.Drawing.Font("굴림", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lblGameTime.Location = new System.Drawing.Point(726, 407);
+            this.lblGameTime.Name = "lblGameTime";
+            this.lblGameTime.Size = new System.Drawing.Size(89, 19);
+            this.lblGameTime.TabIndex = 5;
+            this.lblGameTime.Text = "00:00:00";
+            this.lblGameTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("굴림", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label2.Location = new System.Drawing.Point(633, 245);
+            this.label2.Location = new System.Drawing.Point(626, 409);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 16);
             this.label2.TabIndex = 6;
@@ -336,14 +336,13 @@
             this.btnPlayAgain.AutoSize = true;
             this.btnPlayAgain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnPlayAgain.Depth = 0;
-            this.btnPlayAgain.Icon = null;
             this.btnPlayAgain.Location = new System.Drawing.Point(652, 91);
             this.btnPlayAgain.MaximumSize = new System.Drawing.Size(153, 100);
-            this.btnPlayAgain.MinimumSize = new System.Drawing.Size(153, 100);
+            this.btnPlayAgain.MinimumSize = new System.Drawing.Size(150, 100);
             this.btnPlayAgain.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnPlayAgain.Name = "btnPlayAgain";
             this.btnPlayAgain.Primary = true;
-            this.btnPlayAgain.Size = new System.Drawing.Size(153, 100);
+            this.btnPlayAgain.Size = new System.Drawing.Size(150, 100);
             this.btnPlayAgain.TabIndex = 7;
             this.btnPlayAgain.Text = "Play Again";
             this.btnPlayAgain.UseVisualStyleBackColor = true;
@@ -354,35 +353,34 @@
             this.btnHint.AutoSize = true;
             this.btnHint.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnHint.Depth = 0;
-            this.btnHint.Icon = null;
-            this.btnHint.Location = new System.Drawing.Point(767, 646);
-            this.btnHint.MaximumSize = new System.Drawing.Size(153, 80);
-            this.btnHint.MinimumSize = new System.Drawing.Size(80, 20);
+            this.btnHint.Location = new System.Drawing.Point(652, 250);
+            this.btnHint.MaximumSize = new System.Drawing.Size(150, 40);
+            this.btnHint.MinimumSize = new System.Drawing.Size(150, 40);
             this.btnHint.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnHint.Name = "btnHint";
             this.btnHint.Primary = true;
-            this.btnHint.Size = new System.Drawing.Size(80, 36);
+            this.btnHint.Size = new System.Drawing.Size(150, 40);
             this.btnHint.TabIndex = 8;
             this.btnHint.Text = "Hint";
             this.btnHint.UseVisualStyleBackColor = true;
             this.btnHint.Click += new System.EventHandler(this.btnHint_Click);
             // 
-            // timer2
+            // gameCardStatusTimer
             // 
-            this.timer2.Interval = 1000;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.gameCardStatusTimer.Interval = 1000;
+            this.gameCardStatusTimer.Tick += new System.EventHandler(this.gameCardStatusTimer_Tick);
             // 
             // GameBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(859, 690);
+            this.ClientSize = new System.Drawing.Size(827, 691);
             this.Controls.Add(this.btnHint);
             this.Controls.Add(this.btnPlayAgain);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.gameTime);
-            this.Controls.Add(this.ScoreLabel);
+            this.Controls.Add(this.lblGameTime);
+            this.Controls.Add(this.lblScore);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.CardsHolder);
             this.MaximizeBox = false;
@@ -390,9 +388,9 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "같은 영화 포스터 찾기 게임 | 사용자이름 : ";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.gameBoard_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GameBoard_FormClosed);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.gameBoard_Load);
             this.CardsHolder.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.card16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.card15)).EndInit();
@@ -419,9 +417,9 @@
 
         private System.Windows.Forms.Panel CardsHolder;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label ScoreLabel;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Timer timer3;
+        private System.Windows.Forms.Label lblScore;
+        private System.Windows.Forms.Timer gameInitPreviewTimer;
+        private System.Windows.Forms.Timer gameCardIncorrectTimer;
         private System.Windows.Forms.PictureBox card1;
         private System.Windows.Forms.PictureBox card16;
         private System.Windows.Forms.PictureBox card15;
@@ -438,12 +436,12 @@
         private System.Windows.Forms.PictureBox card4;
         private System.Windows.Forms.PictureBox card3;
         private System.Windows.Forms.PictureBox card2;
-        private System.Windows.Forms.Timer timer4;
-        private System.Windows.Forms.Label gameTime;
+        private System.Windows.Forms.Timer gameCardCorrectTimer;
+        private System.Windows.Forms.Label lblGameTime;
         private System.Windows.Forms.Label label2;
         private MaterialSkin.Controls.MaterialRaisedButton btnPlayAgain;
         private MaterialSkin.Controls.MaterialRaisedButton btnHint;
-        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Timer gameCardStatusTimer;
     }
 }
 

@@ -45,18 +45,17 @@
             // 
             // btnToExcelSave
             // 
-            this.btnToExcelSave.AutoSize = true;
             this.btnToExcelSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnToExcelSave.Depth = 0;
-            this.btnToExcelSave.Icon = null;
-            this.btnToExcelSave.Location = new System.Drawing.Point(23, 75);
-            this.btnToExcelSave.MinimumSize = new System.Drawing.Size(160, 60);
+            this.btnToExcelSave.Location = new System.Drawing.Point(75, 75);
+            this.btnToExcelSave.MaximumSize = new System.Drawing.Size(185, 60);
+            this.btnToExcelSave.MinimumSize = new System.Drawing.Size(185, 60);
             this.btnToExcelSave.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnToExcelSave.Name = "btnToExcelSave";
             this.btnToExcelSave.Primary = true;
-            this.btnToExcelSave.Size = new System.Drawing.Size(160, 60);
+            this.btnToExcelSave.Size = new System.Drawing.Size(185, 60);
             this.btnToExcelSave.TabIndex = 4;
-            this.btnToExcelSave.Text = "To Excel File Save";
+            this.btnToExcelSave.Text = "게임순위 파일 저장하기";
             this.btnToExcelSave.UseVisualStyleBackColor = true;
             this.btnToExcelSave.Click += new System.EventHandler(this.btnToExcelSave_Click);
             // 
@@ -65,15 +64,15 @@
             this.btnExcelOpen.AutoSize = true;
             this.btnExcelOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnExcelOpen.Depth = 0;
-            this.btnExcelOpen.Icon = null;
-            this.btnExcelOpen.Location = new System.Drawing.Point(216, 75);
-            this.btnExcelOpen.MinimumSize = new System.Drawing.Size(160, 60);
+            this.btnExcelOpen.Location = new System.Drawing.Point(333, 75);
+            this.btnExcelOpen.MaximumSize = new System.Drawing.Size(185, 60);
+            this.btnExcelOpen.MinimumSize = new System.Drawing.Size(185, 60);
             this.btnExcelOpen.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnExcelOpen.Name = "btnExcelOpen";
             this.btnExcelOpen.Primary = true;
-            this.btnExcelOpen.Size = new System.Drawing.Size(160, 60);
+            this.btnExcelOpen.Size = new System.Drawing.Size(185, 60);
             this.btnExcelOpen.TabIndex = 5;
-            this.btnExcelOpen.Text = "To Excel File Open";
+            this.btnExcelOpen.Text = "게임순위 파일 열어보기";
             this.btnExcelOpen.UseVisualStyleBackColor = true;
             this.btnExcelOpen.Click += new System.EventHandler(this.btnExcelOpen_Click);
             // 
@@ -81,15 +80,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 476);
+            this.ClientSize = new System.Drawing.Size(580, 480);
             this.Controls.Add(this.btnExcelOpen);
             this.Controls.Add(this.btnToExcelSave);
             this.Controls.Add(this.dataGridView1);
-            this.MinimumSize = new System.Drawing.Size(390, 470);
+            this.MaximumSize = new System.Drawing.Size(580, 480);
+            this.MinimumSize = new System.Drawing.Size(580, 480);
             this.Name = "GameRank";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "GameRank";
-            this.Load += new System.EventHandler(this.Form2_Load);
+            this.Text = "게임순위";
+            this.Load += new System.EventHandler(this.GameRank_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

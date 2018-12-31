@@ -19,10 +19,6 @@ namespace CardGame2
             Application.SetCompatibleTextRenderingDefault(false);
 
             Application.Run(new GameRank());
-
-
         }
-
-
     }
 }

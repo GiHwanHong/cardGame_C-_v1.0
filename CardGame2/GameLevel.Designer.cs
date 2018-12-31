@@ -49,7 +49,6 @@
             this.btnLevel0.AutoSize = true;
             this.btnLevel0.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnLevel0.Depth = 0;
-            this.btnLevel0.Icon = null;
             this.btnLevel0.Location = new System.Drawing.Point(24, 99);
             this.btnLevel0.MaximumSize = new System.Drawing.Size(65, 40);
             this.btnLevel0.MinimumSize = new System.Drawing.Size(65, 40);
@@ -67,7 +66,6 @@
             this.btnLevel1.AutoSize = true;
             this.btnLevel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnLevel1.Depth = 0;
-            this.btnLevel1.Icon = null;
             this.btnLevel1.Location = new System.Drawing.Point(101, 99);
             this.btnLevel1.MaximumSize = new System.Drawing.Size(65, 40);
             this.btnLevel1.MinimumSize = new System.Drawing.Size(65, 40);
@@ -85,7 +83,6 @@
             this.btnLevel2.AutoSize = true;
             this.btnLevel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnLevel2.Depth = 0;
-            this.btnLevel2.Icon = null;
             this.btnLevel2.Location = new System.Drawing.Point(183, 99);
             this.btnLevel2.MaximumSize = new System.Drawing.Size(65, 40);
             this.btnLevel2.MinimumSize = new System.Drawing.Size(65, 40);
@@ -107,6 +104,8 @@
             this.Controls.Add(this.btnLevel1);
             this.Controls.Add(this.btnLevel0);
             this.Controls.Add(this.label1);
+            this.MaximumSize = new System.Drawing.Size(275, 150);
+            this.MinimumSize = new System.Drawing.Size(275, 150);
             this.Name = "GameLevel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "난이도 설정";
